@@ -8,7 +8,7 @@ terraform {
 provider "azurerm" {
   features {}
 }
-resource "azurerm_resource_group" "{ResourceGroup}" {
+resource "Terraform-Resource" "{ResourceGroup}" {
   name = "{ResourceGroup}"
-  location = "eastus"
+  loation = "eastus"
 }
