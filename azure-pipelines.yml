@@ -16,33 +16,19 @@ steps:
   inputs:
     versionSpec: '3.12'
 
-- script: |
-    pip install -r hello_app/requirements.txt
-    pip install pytest pytest-cov pytest-azurepipelines
+- script: python -m pip install --upgrade pip
+  displayName: 'Upgrade pip'
+
+- script: pip install -r hello_app/requirements.txt
   displayName: 'Install dependencies'
 
-
-
 - script: |
-    
-    pytest test/test --cov=hello_app --cov-report=xml
+    pip install pytest pytest-cov
+    pytest --cov=your_package_name tests/
   displayName: 'Run tests with coverage'
 
-
-- task: PublishCodeCoverageResults@2
+- task: PublishTestResults@2
   inputs:
-    codeCoverageTool: 'Cobertura'
-    summaryFileLocation: 'coverage.xml'
-
-- task: ArchiveFiles@2
-  condition: succeeded()
-  inputs:
-    rootFolderOrFile: $(System.DefaultWorkingDirectory)
-    includeRootFolder: false
-    archiveType: zip
-    archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-$(python.version).zip
-    replaceExistingArchive: true
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/TEST-*.xml'
+  condition: succeededOrFailed()
