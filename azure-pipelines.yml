@@ -1,25 +1,22 @@
 trigger:
-- main
+- main  # Or your default branch
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'ubuntu-latest'
 
-strategy:
-  matrix:
-    Python312:
-      python.version: '3.12'
+variables:
+  pythonVersion: '3.12'
 
 steps:
-- checkout: self
-
 - task: UsePythonVersion@0
   inputs:
-    versionSpec: '3.12'
+    versionSpec: '$(pythonVersion)'
+    addToPath: true
 
 - script: python -m pip install --upgrade pip
   displayName: 'Upgrade pip'
 
-- script: pip install -r hello_app/requirements.txt
+- script: pip install -r hello_apprequirements.txt
   displayName: 'Install dependencies'
 
 - script: |
