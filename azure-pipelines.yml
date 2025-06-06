@@ -24,7 +24,7 @@ steps:
 
 
 - script: |
-    pytest hello_app/tests --cov=hello_app --cov-report=xml
+    pytest test/tests --cov=hello_app --cov-report=xml
 
   displayName: 'Run tests with coverage'
 
