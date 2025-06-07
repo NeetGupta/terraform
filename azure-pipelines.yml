@@ -14,7 +14,10 @@ steps:
     addToPath: true
 
 - script: python -m pip install --upgrade pip
-  displayName: 'Upgrade pip'
+- script: |
+    echo "Current directory: $(pwd)"
+    ls -R
+  displayName: 'List files to debug path issue'
 
 - script: pip install -r requirements.txt
   displayName: 'Install dependencies'
