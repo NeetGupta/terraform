@@ -15,9 +15,7 @@ steps:
 
 - script: python -m pip install --upgrade pip
 - script: |
-    echo "Current directory: $(pwd)"
-    ls -R
-  displayName: 'List files to debug path issue'
+    find . -name "requirements.txt"
 
 - script: pip install -r requirements.txt
   displayName: 'Install dependencies'
